@@ -1,0 +1,89 @@
+#include<stdio.h>
+#include<stdlib.h>
+struct list
+{
+int seg;
+int base;
+int seg_size;
+struct list *next;
+} *p;
+void insert(struct list *q,int base,int seg_size,int seg)
+{
+if(p==NULL){
+p=malloc(sizeof(struct list));
+p->seg_size=seg_size;
+p->base=base;
+p->seg=seg;
+p->next=NULL;
+}
+else{
+while(q->next!=NULL){
+q=q->next;
+}
+q->next=malloc(sizeof(struct list));
+q->next ->seg_size=seg_size;
+q->next ->base=base;
+q->next ->seg=seg;
+q->next ->next=NULL;
+}
+}
+int find(struct list *q,int seg)
+{
+while(q->seg!=seg){
+q=q->next;
+}
+return q->seg_size;
+}
+int search(struct list *q,int seg)
+{
+while(q->seg!=seg){
+q=q->next;
+}
+return q->base;
+}
+main()
+{
+p=NULL;
+int seg,offset,seg_size,base,s,ba,physical;
+printf("\nEnter segment table/n");
+printf("\nEnter -1 as segment value for termination\n");
+do{
+printf("\nEnter segment number : ");
+scanf("%d",&seg);
+if(seg!=-1){
+printf("\nEnter base value: ");
+scanf("%d",&base);
+printf("\nEnter the segment size: ");
+scanf("%d",&seg_size);
+insert(p,base,seg_size,seg);
+}
+}while(seg!=-1);
+printf("\nEnter offset : ");
+scanf("%d",&offset);
+printf("\nEnter segment number: ");
+scanf("%d",&seg);
+s=find(p,seg);
+ba=search(p,seg);
+if(offset<s){
+physical=ba+offset;
+printf("Address in physical memory %d\t",physical);
+}
+else{
+printf("Trap");
+}
+}
+
+----------------
+OUTPUT :
+Enter segment table/n
+Enter -1 as segment value for termination
+Enter segment number : 1
+Enter base value: 2000
+Enter the segment size: 200
+Enter segment number : 2
+Enter base value: 5000
+Enter the segment size: 100
+Enter segment number : -1
+Enter offset : 90
+Enter segment number: 1
+Address in physical memory 2090
