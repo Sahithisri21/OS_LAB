@@ -1,0 +1,67 @@
+#include<stdio.h>
+ int main(){
+       int las,ps,nop,np,rempages,i,j,x,y,pa,offset;
+       int s[10],fno[10][20];
+       printf("\nEnter the logical memory size--");
+       scanf("%d",&las);
+       printf("\n Enter the page size--");
+       scanf("%d",&ps);
+       nop = las/ps;
+      printf("\n The no.pages avaliable in memory are -- %d",nop);
+      printf("\n Enter number of process--");
+      scanf("%d",&np);
+      rempages = nop;
+      for(i =1;i<=np;i++){
+          printf("\n Enter no.ofpages requried for p[%d]--",i);
+          scanf("%d",&s[i]);
+          if(s[i] >rempages){
+              printf("\nMemory is Full");
+              break;
+          }
+          rempages = rempages -s[i];
+          printf("\nEnter pagetable for p[%d] --",i);
+          for(j=0;j<s[i];j++)
+              scanf("%d",&fno[i][j]);
+      }
+      printf("\nEnter Logical Address to find Physcial Address");
+      printf("\nEnter process no. and page number and offset--");
+      scanf("%d %d %d",&x,&y,&offset);
+      if(x>np||y>=s[i]||offset>=ps)
+              printf("\nInvalid Process or Page Number or offset");
+      else{
+              pa =fno[x][y]*ps+offset;
+              printf("\nThe physical Address is --%d",pa);
+           }
+ }
+ OUTPUT:
+ Enter the logical memory size--1000
+
+ Enter the page size--100
+
+ The no.pages avaliable in memory are -- 10
+ Enter number of process--3
+
+ Enter no.ofpages requried for p[1]--4
+
+Enter pagetable for p[1] --8
+6
+9
+5
+
+ Enter no.ofpages requried for p[2]--5
+
+Enter pagetable for p[2] --1
+4
+5
+7
+3
+
+ Enter no.ofpages requried for p[3]--5
+
+Memory is Full
+Enter Logical Address to find Physcial Address
+Enter process no. and page number and offset--2
+3
+60
+
+The physical Address is --760
